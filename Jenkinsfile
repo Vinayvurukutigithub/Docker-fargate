@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'us-east-1'
-        ECR_REPO = '<940482429259>.dkr.ecr.us-east-1.amazonaws.com/my-ecr-repo'
+        ECR_REPO = '940482429259.dkr.ecr.us-east-1.amazonaws.com/my-ecr-repo'
         IMAGE_NAME = 'my-ecr-repo'
         CLUSTER_NAME = 'my-cluster'
         SERVICE_NAME = 'my-app-service'
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                https://github.com/Vinayvurukutigithub/Docker-fargate.git
+                git 'https://github.com/Vinayvurukutigithub/Docker-fargate.git'
             }
         }
 
@@ -52,7 +52,7 @@ pipeline {
                 script {
                     sh '''
                     aws ecs update-service \
-                        --cluster $my-cluster \
+                        --cluster $CLUSTER_NAME \
                         --service $SERVICE_NAME \
                         --force-new-deployment \
                         --region $AWS_REGION
@@ -62,4 +62,3 @@ pipeline {
         }
     }
 }
-
